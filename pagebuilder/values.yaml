@@ -1,37 +1,39 @@
 component: pagebuilder
 serviceAccount:
   create: false
-
+  name: zde-service
 image:
-  repository: 492071692632.dkr.ecr.eu-west-2.amazonaws.com/zde/journey-nbo
-  tag: 1.0.450-v2
+  repository: zoralft/generic-zdj-page-builder
+  tag: 0.0.8
   pullPolicy: Always
   pullSecrets: []
 
 readinessProbe:
+  failureThreshold: 3
   httpGet:
     path: /
-    port: 80
+    port: http
+    scheme: HTTP
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
 
 livenessProbe:
+  failureThreshold: 3
   httpGet:
     path: /
-    port: 80
+    port: http
+    scheme: HTTP
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
 replicas: 1
 podPort:
   name: service
   port: 80
 
 env: {}
-envValueFrom: 
-  - name: Z_BDWH_SCRIPT
-    value: https://bds.dev.zde.jaja.co.uk/script?systemCode=04D27467-2275-4B04-8A35-CBA688DD22C9
-  - name: EDQ_AUTH_TOKEN
-    value: a8bd4225-7149-4df4-80db-f062947f1c37
-  - name: HMAC_USERNAME
-    value: zoral
-  - name: HMAC_PASSWORD
-    value: 2GBFb1ebbiHM2XYK
+envValueFrom: {}
 envFromSecret: {}
 envRenderSecret: {}
 
