@@ -1,0 +1,4 @@
+{{- include "libchart.service" (list . "journey.service") -}}
+{{- define "journey.service" -}}
+
+{{- end -}}

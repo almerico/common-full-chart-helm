@@ -1,0 +1,4 @@
+{{- include "libchart.ingress" (list . "journey-api.ingress") -}}
+{{- define "journey-api.ingress" -}}
+
+{{- end -}}

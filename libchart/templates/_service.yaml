@@ -1,0 +1,31 @@
+{{- define "libchart.service.tpl" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "service.fullname" . }}
+  labels:
+    {{- include "service.labels" . | nindent 4 }}
+{{- if .Values.service.labels }}
+{{ toYaml .Values.service.labels | indent 4 }}
+{{- end }}
+{{- with .Values.service.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  type: ClusterIP
+  {{- if .Values.service.clusterIP }}
+  clusterIP: {{ .Values.service.clusterIP }}
+  {{end}}
+  ports:
+    - name: {{ .Values.service.portName }}
+      port: {{ .Values.service.port }}
+      protocol: TCP
+      targetPort: {{ .Values.service.targetPort }}
+  selector:
+    {{- include "service.selectorLabels" . | nindent 4 }}
+
+{{- end -}}
+{{- define "libchart.service" -}}
+{{- include "libchart.util.merge" (append . "libchart.service.tpl") -}}
+{{- end -}}

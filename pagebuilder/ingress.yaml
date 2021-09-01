@@ -1,0 +1,4 @@
+{{- include "libchart.ingress" (list . "pagebuilder.ingress") -}}
+{{- define "pagebuilder.ingress" -}}
+
+{{- end -}}

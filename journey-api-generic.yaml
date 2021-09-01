@@ -1,0 +1,238 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for container
+      journey-generic; cpu, memory limit for container journey-generic'
+    kubernetes.io/psp: eks.privileged
+  creationTimestamp: "2021-08-25T11:01:08Z"
+  generateName: journey-generic-65bf96bc8c-
+  labels:
+    app.kubernetes.io/instance: zde
+    app.kubernetes.io/name: journey-generic
+    pod-template-hash: 65bf96bc8c
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:generateName: {}
+        f:labels:
+          .: {}
+          f:app.kubernetes.io/instance: {}
+          f:app.kubernetes.io/name: {}
+          f:pod-template-hash: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"d979e9be-bb35-4037-a484-bba9c3a1fbf1"}:
+            .: {}
+            f:apiVersion: {}
+            f:blockOwnerDeletion: {}
+            f:controller: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        f:containers:
+          k:{"name":"journey-generic"}:
+            .: {}
+            f:env:
+              .: {}
+              k:{"name":"Z_DE_ENV"}:
+                .: {}
+                f:name: {}
+                f:value: {}
+              k:{"name":"Z_GOOGLE_MAPS_KEY"}:
+                .: {}
+                f:name: {}
+                f:value: {}
+              k:{"name":"Z_STORAGE_ENV"}:
+                .: {}
+                f:name: {}
+                f:value: {}
+              k:{"name":"Z_WF_NOT_AUTH"}:
+                .: {}
+                f:name: {}
+                f:value: {}
+            f:image: {}
+            f:imagePullPolicy: {}
+            f:name: {}
+            f:ports:
+              .: {}
+              k:{"containerPort":80,"protocol":"TCP"}:
+                .: {}
+                f:containerPort: {}
+                f:protocol: {}
+            f:resources: {}
+            f:terminationMessagePath: {}
+            f:terminationMessagePolicy: {}
+        f:dnsPolicy: {}
+        f:enableServiceLinks: {}
+        f:restartPolicy: {}
+        f:schedulerName: {}
+        f:securityContext: {}
+        f:serviceAccount: {}
+        f:serviceAccountName: {}
+        f:terminationGracePeriodSeconds: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2021-08-25T11:01:08Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:conditions:
+          k:{"type":"ContainersReady"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Initialized"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Ready"}:
+            .: {}
+            f:lastProbeTime: {}
+            f:lastTransitionTime: {}
+            f:status: {}
+            f:type: {}
+        f:containerStatuses: {}
+        f:hostIP: {}
+        f:phase: {}
+        f:podIP: {}
+        f:podIPs:
+          .: {}
+          k:{"ip":"10.1.2.10"}:
+            .: {}
+            f:ip: {}
+        f:startTime: {}
+    manager: kubelet
+    operation: Update
+    time: "2021-08-25T11:02:57Z"
+  name: journey-generic-65bf96bc8c-9bwpg
+  namespace: venus
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: journey-generic-65bf96bc8c
+    uid: d979e9be-bb35-4037-a484-bba9c3a1fbf1
+  resourceVersion: "213341143"
+  selfLink: /api/v1/namespaces/venus/pods/journey-generic-65bf96bc8c-9bwpg
+  uid: 5038ed5f-7a72-4ad8-a767-0fbf8cc7aa38
+spec:
+  containers:
+  - env:
+    - name: Z_DE_ENV
+      value: https://host.venus.staging-zorallabs.com
+    - name: Z_GOOGLE_MAPS_KEY
+      value: AIzaSyBdaSuPXzbtTf6SY8qPaSflJRlAdFw-yjo
+    - name: Z_STORAGE_ENV
+      value: https://workdir.venus.staging-zorallabs.com/files
+    - name: Z_WF_NOT_AUTH
+      value: UUW
+    - name: AWS_DEFAULT_REGION
+      value: eu-west-1
+    - name: AWS_REGION
+      value: eu-west-1
+    - name: AWS_ROLE_ARN
+      value: arn:aws:iam::248645718462:role/eksctl-zde-k8s-dev-eks-linux-addon-iamservic-Role1-1TM16UU4G4LJ8
+    - name: AWS_WEB_IDENTITY_TOKEN_FILE
+      value: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+    image: zoralft/demo-next:1.4.5
+    imagePullPolicy: Always
+    name: journey-generic
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: zde-service-token-dxzj9
+      readOnly: true
+    - mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount
+      name: aws-iam-token
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: ip-10-1-2-143.eu-west-1.compute.internal
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: zde-service
+  serviceAccountName: zde-service
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: aws-iam-token
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          audience: sts.amazonaws.com
+          expirationSeconds: 86400
+          path: token
+  - name: zde-service-token-dxzj9
+    secret:
+      defaultMode: 420
+      secretName: zde-service-token-dxzj9
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-25T11:01:08Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-25T11:02:57Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-25T11:02:57Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-25T11:01:08Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://41f3610299d0fe856f3ffe734cc60f13f44a686df9005e5f9724f88ad8146d9e
+    image: zoralft/demo-next:1.4.5
+    imageID: docker-pullable://zoralft/demo-next@sha256:f6b2a7d43f0fae9b89f479706841d31f5846b179bc26288d650df5cd2fa9ced1
+    lastState: {}
+    name: journey-generic
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-08-25T11:02:57Z"
+  hostIP: 10.1.2.143
+  phase: Running
+  podIP: 10.1.2.10
+  podIPs:
+  - ip: 10.1.2.10
+  qosClass: Burstable
+  startTime: "2021-08-25T11:01:08Z"

@@ -1,0 +1,66 @@
+component: pagebuilder
+serviceAccount:
+  create: false
+
+image:
+  repository: 492071692632.dkr.ecr.eu-west-2.amazonaws.com/zde/journey-nbo
+  tag: 1.0.450-v2
+  pullPolicy: Always
+  pullSecrets: []
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+replicas: 1
+podPort:
+  name: service
+  port: 80
+
+env: {}
+envValueFrom: 
+  - name: Z_BDWH_SCRIPT
+    value: https://bds.dev.zde.jaja.co.uk/script?systemCode=04D27467-2275-4B04-8A35-CBA688DD22C9
+  - name: EDQ_AUTH_TOKEN
+    value: a8bd4225-7149-4df4-80db-f062947f1c37
+  - name: HMAC_USERNAME
+    value: zoral
+  - name: HMAC_PASSWORD
+    value: 2GBFb1ebbiHM2XYK
+envFromSecret: {}
+envRenderSecret: {}
+
+service:
+  portName: http
+  fullName: journey-v2
+  port: 80
+  targetPort: 80
+  labels: {}
+
+ingress:
+  enabled: true
+  # Values can be templated
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    certmanager.k8s.io/cluster-issuer: "letsencrypt-default"
+    certmanager.k8s.io/acme-challenge-type: dns01
+    certmanager.k8s.io/acme-dns01-provider: route53
+  labels: {}
+  path: /
+  hosts:
+    - journey-v2.dev.zde.jaja.co.uk
+  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+  extraPaths: []
+  # - path: /*
+  #   backend:
+  #     serviceName: ssl-redirect
+  #     servicePort: use-annotation
+  tls:
+   - secretName: zde-tls-secret
+     hosts:
+       - journey-v2.dev.zde.jaja.co.uk

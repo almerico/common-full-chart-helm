@@ -1,0 +1,65 @@
+component: journey-api
+serviceAccount:
+  create: false
+  name: zde-service
+
+image:
+  repository: 492071692632.dkr.ecr.eu-west-2.amazonaws.com/zde/journey-nbo
+  tag: 1.0.450-v2
+  pullPolicy: Always
+  pullSecrets: []
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+replicas: 1
+podPort:
+  name: service
+  port: 80
+
+env: 
+    ASPNETCORE_ENVIRONMENT: dev
+    Logging__LogLevel__Default: Debug
+ 
+envValueFrom: {}
+
+envFromSecret: {}
+envRenderSecret: {}
+
+  
+service:
+  portName: http
+  fullName: journey-api
+  port: 80
+  targetPort: 80
+  labels: {}
+
+ingress:
+  enabled: true
+  # Values can be templated
+  annotations:
+    kubernetes.io/tls-acme: 'true'
+    kubernetes.io/ingress.class: "nginx"
+    certmanager.k8s.io/cluster-issuer: "letsencrypt-default"
+    certmanager.k8s.io/acme-challenge-type: dns01
+    certmanager.k8s.io/acme-dns01-provider: route53
+  labels: {}
+  path: /
+  hosts:
+    - journey-api.dev.zde.jaja.co.uk
+  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+  extraPaths: []
+  # - path: /*
+  #   backend:
+  #     serviceName: ssl-redirect
+  #     servicePort: use-annotation
+  tls:
+   - secretName: journey-api
+     hosts:
+       - journey-api.dev.zde.jaja.co.uk
