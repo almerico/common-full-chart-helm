@@ -17,7 +17,7 @@ spec:
   replicas: {{ .Values.newReplicas }}
 {{- end -}}
 ```
-But usually all configuration happens in services value files like ``https://github.com/almerico/full-chart-helm/blob/main/journey-v2/values.yaml``
+But usually all configuration happens in services value files like ``https://github.com/almerico/common-full-chart-helm/blob/main/journey-v2/values.yaml``
 
 
 And finally umbrella-chart can install all in once and in it's  Values file we can reassign values.
